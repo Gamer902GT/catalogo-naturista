@@ -1,12 +1,11 @@
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let categoriaActual = "todos";
 
 const buscador = document.getElementById("buscador");
 
-// 🔍 BUSCADOR
+// BUSCADOR
 buscador.addEventListener("keyup", aplicarFiltros);
 
-// 🛒 AGREGAR
+// AGREGAR
 function agregarCarrito(nombre, precio) {
   let producto = carrito.find(p => p.nombre === nombre);
 
@@ -16,17 +15,17 @@ function agregarCarrito(nombre, precio) {
     carrito.push({ nombre, precio, cantidad: 1 });
   }
 
-  guardarCarrito();
+  guardar();
   actualizarCarrito();
   mostrarNotificacion("Producto agregado 🛒");
 }
 
-// 💾 GUARDAR
-function guardarCarrito() {
+// GUARDAR
+function guardar() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// 🔄 ACTUALIZAR
+// ACTUALIZAR
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -34,12 +33,11 @@ function actualizarCarrito() {
 
   lista.innerHTML = "";
   let suma = 0;
-  let cantidadTotal = 0;
+  let cant = 0;
 
   carrito.forEach((p, i) => {
-    let subtotal = p.precio * p.cantidad;
-    suma += subtotal;
-    cantidadTotal += p.cantidad;
+    suma += p.precio * p.cantidad;
+    cant += p.cantidad;
 
     lista.innerHTML += `
       <li>
@@ -50,17 +48,17 @@ function actualizarCarrito() {
   });
 
   total.innerText = "Total: $" + suma;
-  contador.innerText = cantidadTotal;
+  contador.innerText = cant;
 }
 
-// ❌ ELIMINAR
+// ELIMINAR
 function eliminar(i) {
   carrito.splice(i, 1);
-  guardarCarrito();
+  guardar();
   actualizarCarrito();
 }
 
-// 📲 WHATSAPP
+// WHATSAPP
 function enviarWhatsApp() {
   let metodo = document.getElementById("metodoPago").value;
 
@@ -88,28 +86,28 @@ function enviarWhatsApp() {
   window.open("https://wa.me/573218299283?text=" + mensaje);
 }
 
-// 🧲 ABRIR / CERRAR
+// TOGGLE
 function toggleCarrito() {
   document.getElementById("carritoPanel").classList.toggle("activo");
+  document.getElementById("overlay").classList.toggle("activo");
 }
 
-// 🔍 FILTROS
+// FILTROS
 function filtrar(cat) {
   categoriaActual = cat;
   aplicarFiltros();
 }
 
-// 🔍 APLICAR
 function aplicarFiltros() {
   let texto = buscador.value.toLowerCase();
+
   document.querySelectorAll(".card").forEach(p => {
-    let okTexto = p.innerText.toLowerCase().includes(texto);
-    let okCat = categoriaActual === "todos" || p.classList.contains(categoriaActual);
-    p.style.display = (okTexto && okCat) ? "block" : "none";
+    let ok = p.innerText.toLowerCase().includes(texto);
+    p.style.display = ok ? "block" : "none";
   });
 }
 
-// 🔔 NOTIFICACIÓN
+// NOTIFICACIÓN
 function mostrarNotificacion(msg) {
   let n = document.getElementById("notificacion");
   n.innerText = msg;
@@ -118,5 +116,5 @@ function mostrarNotificacion(msg) {
   setTimeout(() => n.classList.remove("mostrar"), 2000);
 }
 
-// 🔄 INICIAR
+// INICIO
 actualizarCarrito();

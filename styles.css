@@ -2,145 +2,77 @@ body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background: #f5f7f6;
-  color: #333;
 }
 
 /* HEADER */
 .header {
   text-align: center;
-  padding: 50px 20px;
+  padding: 40px;
   background: linear-gradient(135deg, #2e7d32, #66bb6a);
   color: white;
-  animation: fadeDown 1s ease;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 36px;
-}
-
-.header p {
-  margin-top: 10px;
-  opacity: 0.9;
-}
-
-/* ANIMACIONES */
-@keyframes fadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* BUSCADOR Y FILTROS */
+/* BUSCADOR */
 .top-bar {
   text-align: center;
-  margin: 30px 0;
+  margin: 20px;
 }
 
 #buscador {
   width: 80%;
   max-width: 400px;
-  padding: 12px;
-  border-radius: 30px;
+  padding: 10px;
+  border-radius: 20px;
   border: none;
-  outline: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* FILTROS */
 .filtros button {
   margin: 5px;
-  padding: 10px 18px;
+  padding: 8px 15px;
   border-radius: 20px;
   border: none;
-  background: #e0e0e0;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.filtros button:hover {
-  background: #2e7d32;
-  color: white;
-  transform: scale(1.05);
-}
-
-.filtros button.activo {
+.filtros .activo {
   background: #2e7d32;
   color: white;
 }
 
-/* PRODUCTOS GRID */
+/* PRODUCTOS */
 .productos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  gap: 20px;
   padding: 20px;
 }
 
-/* TARJETAS */
 .card {
   background: white;
-  border-radius: 20px;
   padding: 15px;
-  transition: 0.4s;
+  border-radius: 15px;
+  text-align: center;
+  transition: 0.3s;
+  z-index: 1;
   position: relative;
-  overflow: hidden;
-  border: 1px solid #eee;
-  animation: fadeUp 0.8s ease;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
 }
 
-/* IMAGEN */
 .card img {
   width: 100%;
-  border-radius: 15px;
-  transition: 0.3s;
+  border-radius: 10px;
 }
 
-.card:hover img {
-  transform: scale(1.05);
-}
-
-/* TEXTO */
-.card h2 {
-  margin: 10px 0 5px;
-}
-
-.card p {
-  color: #666;
-  font-size: 14px;
-}
-
-/* PRECIO */
 .precio {
   display: block;
-  font-size: 20px;
   font-weight: bold;
   margin: 10px 0;
-  color: #2e7d32;
 }
 
-/* BOTÓN AGREGAR */
 .card button {
   width: 100%;
   padding: 10px;
@@ -148,99 +80,6 @@ body {
   border: none;
   background: #2e7d32;
   color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.card button:hover {
-  background: #1b5e20;
-  transform: scale(1.05);
-}
-
-/* CARRITO */
-.carrito {
-  position: fixed;
-  right: 20px;
-  top: 120px;
-  width: 260px;
-  background: white;
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  animation: fadeRight 1s ease;
-}
-
-@keyframes fadeRight {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.carrito ul {
-  list-style: none;
-  padding: 0;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.carrito li {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-/* SELECT PAGO */
-.carrito select {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 8px;
-}
-
-/* BOTÓN WHATSAPP */
-.carrito button {
-  width: 100%;
-  padding: 10px;
-  background: #25D366;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-/* NOTIFICACIÓN */
-.notificacion {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #2e7d32;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 10px;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: 0.3s;
-}
-
-.notificacion.mostrar {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .carrito {
-    position: static;
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-  }
 }
 
 /* BOTÓN FLOTANTE */
@@ -253,8 +92,6 @@ body {
   padding: 15px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   z-index: 1000;
 }
 
@@ -268,7 +105,23 @@ body {
   right: -5px;
 }
 
-/* PANEL LATERAL */
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 9998;
+}
+
+.overlay.activo {
+  display: block;
+}
+
+/* CARRITO */
 .carrito-panel {
   position: fixed;
   top: 0;
@@ -276,49 +129,57 @@ body {
   width: 300px;
   height: 100%;
   background: white;
-  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
   padding: 20px;
   transition: 0.4s;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .carrito-panel.activo {
   right: 0;
 }
 
-/* HEADER */
 .carrito-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.carrito-header span {
-  cursor: pointer;
-  font-size: 20px;
-}
-
-/* LISTA */
 .carrito-panel ul {
   list-style: none;
   padding: 0;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 .carrito-panel li {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0;
+  margin: 5px 0;
 }
 
-/* BOTÓN */
+.carrito-panel select {
+  width: 100%;
+  margin: 10px 0;
+}
+
 .carrito-panel button {
   width: 100%;
   padding: 10px;
   background: #25D366;
   color: white;
   border: none;
+}
+
+/* NOTIFICACIÓN */
+.notificacion {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #2e7d32;
+  color: white;
+  padding: 10px;
   border-radius: 10px;
-  margin-top: 10px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.notificacion.mostrar {
+  opacity: 1;
 }
