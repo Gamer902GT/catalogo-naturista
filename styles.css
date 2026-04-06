@@ -136,3 +136,41 @@ body {
     width: 90%;
   }
 }
+
+.carrito {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 250px;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.carrito h2 {
+  margin-top: 0;
+}
+
+.carrito ul {
+  list-style: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.carrito li {
+  font-size: 14px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.carrito button {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}

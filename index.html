@@ -20,6 +20,13 @@
     <button onclick="filtrar('te')">Tés</button>
     <button onclick="filtrar('proteina')">Proteínas</button>
   </div>
+<div class="carrito">
+  <h2>🛒 Carrito</h2>
+  <ul id="lista-carrito"></ul>
+  <p id="total">Total: $0</p>
+  <button onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
+</div>
+
 </div>
 
 <section class="productos">
@@ -30,7 +37,7 @@
     <h2>Té Verde Premium</h2>
     <p>Mejora la digestión y acelera el metabolismo</p>
     <span class="precio">$15.000</span>
-    <a href="https://wa.me/573218299283?text=Hola quiero el Té Verde Premium">Comprar</a>
+    <button onclick="agregarCarrito('Té Verde', 15000)">Agregar</button>
   </div>
 
   <div class="card proteina">
@@ -39,7 +46,7 @@
     <h2>Proteína Natural Pro</h2>
     <p>Energía limpia y desarrollo muscular</p>
     <span class="precio">$80.000</span>
-    <a href="https://wa.me/573218299283?text=Hola quiero la proteína">Comprar</a>
+    <button onclick="agregarCarrito('Té Verde', 15000)">Agregar</button>
   </div>
 
 </section>
