@@ -4,7 +4,34 @@ const buscador = document.getElementById("buscador");
 
 buscador.addEventListener("keyup", aplicarFiltros);
 
-function agregarCarrito(nombre, precio) {
+// 🛒 AGREGAR + EFECTO VUELO
+function agregarCarrito(nombre, precio, boton) {
+
+  let card = boton.closest(".card");
+  let img = card.querySelector("img");
+
+  let clone = img.cloneNode();
+  let rect = img.getBoundingClientRect();
+
+  clone.classList.add("fly-img");
+  clone.style.left = rect.left + "px";
+  clone.style.top = rect.top + "px";
+
+  document.body.appendChild(clone);
+
+  let carritoBtn = document.querySelector(".btn-carrito");
+  let destino = carritoBtn.getBoundingClientRect();
+
+  setTimeout(() => {
+    clone.style.left = destino.left + "px";
+    clone.style.top = destino.top + "px";
+    clone.style.width = "20px";
+    clone.style.opacity = "0.5";
+  }, 10);
+
+  setTimeout(() => clone.remove(), 800);
+
+  // LÓGICA NORMAL
   let producto = carrito.find(p => p.nombre === nombre);
 
   if (producto) producto.cantidad++;
@@ -13,27 +40,22 @@ function agregarCarrito(nombre, precio) {
   guardar();
   actualizarCarrito();
   mostrarNotificacion("Agregado 🛒");
-  document.querySelectorAll(".card").forEach(card => {
-  if (card.innerText.includes(nombre)) {
-    card.classList.add("agregado");
-    setTimeout(() => card.classList.remove("agregado"), 400);
-  }
- });
 }
 
+// CAMBIAR CANTIDAD
 function cambiarCantidad(i, cambio) {
   carrito[i].cantidad += cambio;
-
   if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
-
   guardar();
   actualizarCarrito();
 }
 
+// GUARDAR
 function guardar() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
+// ACTUALIZAR
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -63,6 +85,7 @@ function actualizarCarrito() {
   contador.innerText = cant;
 }
 
+// WHATSAPP
 function enviarWhatsApp() {
   let metodo = document.getElementById("metodoPago").value;
 
@@ -82,11 +105,13 @@ function enviarWhatsApp() {
   window.open("https://wa.me/573218299283?text=" + mensaje);
 }
 
+// TOGGLE
 function toggleCarrito() {
   document.getElementById("carritoPanel").classList.toggle("activo");
   document.getElementById("overlay").classList.toggle("activo");
 }
 
+// FILTROS
 function filtrar() {}
 
 function aplicarFiltros() {
@@ -97,6 +122,7 @@ function aplicarFiltros() {
   });
 }
 
+// NOTIFICACIÓN
 function mostrarNotificacion(msg) {
   let n = document.getElementById("notificacion");
   n.innerText = msg;
