@@ -242,3 +242,83 @@ body {
     margin-top: 20px;
   }
 }
+
+/* BOTÓN FLOTANTE */
+.btn-carrito {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2e7d32;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.btn-carrito span {
+  background: red;
+  border-radius: 50%;
+  padding: 3px 8px;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* PANEL LATERAL */
+.carrito-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: 0.4s;
+  z-index: 999;
+}
+
+.carrito-panel.activo {
+  right: 0;
+}
+
+/* HEADER */
+.carrito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrito-header span {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* LISTA */
+.carrito-panel ul {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.carrito-panel li {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+/* BOTÓN */
+.carrito-panel button {
+  width: 100%;
+  padding: 10px;
+  background: #25D366;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+}

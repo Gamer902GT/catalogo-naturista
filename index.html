@@ -22,22 +22,30 @@
   </div>
 </div>
 
-<!-- 🛒 CARRITO -->
-<div class="carrito">
-  <h2>🛒 Carrito</h2>
+<!-- 🛒 BOTÓN FLOTANTE -->
+<div class="btn-carrito" onclick="toggleCarrito()">
+  🛒 <span id="contador">0</span>
+</div>
+
+<!-- 🧲 PANEL LATERAL -->
+<div class="carrito-panel" id="carritoPanel">
+  <div class="carrito-header">
+    <h2>Tu carrito</h2>
+    <span onclick="toggleCarrito()">✖</span>
+  </div>
+
   <ul id="lista-carrito"></ul>
   <p id="total">Total: $0</p>
 
-  <!-- 💳 MÉTODO DE PAGO -->
   <label>Método de pago:</label>
- <select id="metodoPago">
-  <option value="">Selecciona método de pago</option>
-  <option value="Nequi">Nequi</option>
-  <option value="Daviplata">Daviplata</option>
-  <option value="Tarjeta de crédito">Tarjeta de crédito</option>
- </select>
+  <select id="metodoPago">
+    <option value="">Selecciona método</option>
+    <option value="Nequi">Nequi</option>
+    <option value="Daviplata">Daviplata</option>
+    <option value="Tarjeta">Tarjeta</option>
+  </select>
 
- <button onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
+  <button onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
 </div>
 
 <!-- 🛍️ PRODUCTOS -->
