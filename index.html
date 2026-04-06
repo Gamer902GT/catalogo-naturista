@@ -12,33 +12,37 @@
   <p>Salud natural a tu alcance</p>
 </header>
 
-<input type="text" id="buscador" placeholder="Buscar producto...">
+<div class="top-bar">
+  <input type="text" id="buscador" placeholder="Buscar producto...">
+  
+  <div class="filtros">
+    <button onclick="filtrar('todos')" class="activo">Todos</button>
+    <button onclick="filtrar('te')">Tés</button>
+    <button onclick="filtrar('proteina')">Proteínas</button>
+  </div>
+</div>
 
-<section class="productos" id="productos">
+<section class="productos">
 
   <div class="card te">
+    <span class="badge">Natural</span>
     <img src="img/te.jpg">
     <h2>Té Verde</h2>
-    <p>Ayuda a la digestión</p>
-    <span>$15.000</span>
+    <p>Mejora digestión y metabolismo</p>
+    <span class="precio">$15.000</span>
     <a href="https://wa.me/573218299283?text=Hola quiero el Té Verde">Comprar</a>
   </div>
 
   <div class="card proteina">
+    <span class="badge">Top</span>
     <img src="img/proteina.jpg">
     <h2>Proteína Natural</h2>
     <p>Energía y masa muscular</p>
-    <span>$80.000</span>
-    <a href="https://wa.me/573218299283?text=Hola quiero el Té Verde">Comprar</a>
+    <span class="precio">$80.000</span>
+    <a href="https://wa.me/573218299283?text=Hola quiero la proteína">Comprar</a>
   </div>
 
 </section>
-
-<div class="filtros">
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('te')">Tés</button>
-  <button onclick="filtrar('proteina')">Proteínas</button>
-</div>
 
 <script src="script.js"></script>
 
