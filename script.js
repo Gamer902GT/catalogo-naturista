@@ -20,6 +20,18 @@ function agregarCarrito(nombre, precio) {
   mostrarNotificacion("Producto agregado 🛒");
 }
 
+// CAMBIAR CANTIDAD
+function cambiarCantidad(index, cambio) {
+  carrito[index].cantidad += cambio;
+
+  if (carrito[index].cantidad <= 0) {
+    carrito.splice(index, 1);
+  }
+
+  guardar();
+  actualizarCarrito();
+}
+
 // GUARDAR
 function guardar() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -39,28 +51,20 @@ function actualizarCarrito() {
     suma += p.precio * p.cantidad;
     cant += p.cantidad;
 
-   lista.innerHTML += `
-  <li>
-    <span>${p.nombre}</span>
-
-    <div class="controles">
-      <button onclick="cambiarCantidad(${i}, -1)">➖</button>
-      <span>${p.cantidad}</span>
-      <button onclick="cambiarCantidad(${i}, 1)">➕</button>
-    </div>
-  </li>
- `;
+    lista.innerHTML += `
+      <li>
+        <span>${p.nombre}</span>
+        <div class="controles">
+          <button onclick="cambiarCantidad(${i}, -1)">➖</button>
+          <span>${p.cantidad}</span>
+          <button onclick="cambiarCantidad(${i}, 1)">➕</button>
+        </div>
+      </li>
+    `;
   });
 
   total.innerText = "Total: $" + suma;
   contador.innerText = cant;
-}
-
-// ELIMINAR
-function eliminar(i) {
-  carrito.splice(i, 1);
-  guardar();
-  actualizarCarrito();
 }
 
 // WHATSAPP
@@ -121,16 +125,4 @@ function mostrarNotificacion(msg) {
   setTimeout(() => n.classList.remove("mostrar"), 2000);
 }
 
-// INICIO
 actualizarCarrito();
-
-function cambiarCantidad(index, cambio) {
-  carrito[index].cantidad += cambio;
-
-  if (carrito[index].cantidad <= 0) {
-    carrito.splice(index, 1);
-  }
-
-  guardar();
-  actualizarCarrito();
-}

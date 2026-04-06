@@ -20,24 +20,9 @@ body {
 
 #buscador {
   width: 80%;
-  max-width: 400px;
   padding: 10px;
   border-radius: 20px;
   border: none;
-}
-
-/* FILTROS */
-.filtros button {
-  margin: 5px;
-  padding: 8px 15px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-}
-
-.filtros .activo {
-  background: #2e7d32;
-  color: white;
 }
 
 /* PRODUCTOS */
@@ -46,6 +31,19 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
   padding: 20px;
+  position: relative;
+}
+
+/* 🌿 FONDO ABAJO */
+.productos::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, rgba(46,125,50,0.1), transparent);
+  pointer-events: none;
 }
 
 .card {
@@ -53,13 +51,8 @@ body {
   padding: 15px;
   border-radius: 15px;
   text-align: center;
-  transition: 0.3s;
   z-index: 1;
   position: relative;
-}
-
-.card:hover {
-  transform: translateY(-8px);
 }
 
 .card img {
@@ -73,13 +66,14 @@ body {
   margin: 10px 0;
 }
 
+/* BOTÓN */
 .card button {
   width: 100%;
   padding: 10px;
-  border-radius: 10px;
-  border: none;
   background: #2e7d32;
   color: white;
+  border: none;
+  border-radius: 10px;
 }
 
 /* BOTÓN FLOTANTE */
@@ -108,8 +102,6 @@ body {
 /* OVERLAY */
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.4);
@@ -124,8 +116,8 @@ body {
 /* CARRITO */
 .carrito-panel {
   position: fixed;
-  top: 0;
   right: -350px;
+  top: 0;
   width: 300px;
   height: 100%;
   background: white;
@@ -138,33 +130,25 @@ body {
   right: 0;
 }
 
-.carrito-header {
-  display: flex;
-  justify-content: space-between;
-}
-
 .carrito-panel ul {
   list-style: none;
   padding: 0;
 }
 
-.carrito-panel li {
+/* CONTROLES */
+.controles {
   display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
+  align-items: center;
+  gap: 5px;
 }
 
-.carrito-panel select {
-  width: 100%;
-  margin: 10px 0;
-}
-
-.carrito-panel button {
-  width: 100%;
-  padding: 10px;
-  background: #25D366;
-  color: white;
+.controles button {
+  padding: 2px 6px;
+  font-size: 12px;
   border: none;
+  border-radius: 5px;
+  background: #e0e0e0;
+  cursor: pointer;
 }
 
 /* NOTIFICACIÓN */
@@ -182,99 +166,4 @@ body {
 
 .notificacion.mostrar {
   opacity: 1;
-}
-
-/* 🌿 FONDO CON HOJAS */
-body {
-  background: #f5f7f6;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* HOJA IZQUIERDA */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 100%;
-  background: url('https://i.imgur.com/6Iej2c3.png') no-repeat;
-  background-size: contain;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-/* HOJA DERECHA */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 100%;
-  background: url('https://i.imgur.com/6Iej2c3.png') no-repeat;
-  background-size: contain;
-  transform: scaleX(-1);
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-body::before,
-body::after {
-  animation: flotar 6s ease-in-out infinite;
-}
-
-@keyframes flotar {
-  0% { transform: translateY(0px) scaleX(1); }
-  50% { transform: translateY(10px) scaleX(1); }
-  100% { transform: translateY(0px) scaleX(1); }
-}
-
-/* 🌿 FONDO HOJAS ABAJO */
-.productos {
-  position: relative;
-}
-
-.productos::after {
-  content: "";
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background: url('https://www.transparenttextures.com/patterns/leaf.png');
-  opacity: 0.08;
-  pointer-events: none;
-}
-
-.productos::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 150px;
-  background: linear-gradient(to top, rgba(46,125,50,0.1), transparent);
-  pointer-events: none;
-}
-
-/* CONTROLES DE CANTIDAD */
-.controles {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.controles button {
-  background: #e0e0e0;
-  border: none;
-  padding: 3px 8px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.controles span {
-  font-size: 14px;
 }
