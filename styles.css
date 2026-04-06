@@ -183,3 +183,50 @@ body {
 .notificacion.mostrar {
   opacity: 1;
 }
+
+/* 🌿 FONDO CON HOJAS */
+body {
+  background: #f5f7f6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* HOJA IZQUIERDA */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: url('https://i.imgur.com/6Iej2c3.png') no-repeat;
+  background-size: contain;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* HOJA DERECHA */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background: url('https://i.imgur.com/6Iej2c3.png') no-repeat;
+  background-size: contain;
+  transform: scaleX(-1);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+body::before,
+body::after {
+  animation: flotar 6s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px) scaleX(1); }
+  50% { transform: translateY(10px) scaleX(1); }
+  100% { transform: translateY(0px) scaleX(1); }
+}
