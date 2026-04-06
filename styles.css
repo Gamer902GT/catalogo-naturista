@@ -36,7 +36,15 @@ body {
 
 /* 🌿 FONDO ABAJO */
 .productos {
-  background: linear-gradient(to top, #e8f5e9, transparent);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+
+  background-color: #f5f7f6;
+  background-image: url("https://www.transparenttextures.com/patterns/leaves.png");
+  background-size: 400px;
+ opacity: 0.9;
 }
 
 .productos::after {
