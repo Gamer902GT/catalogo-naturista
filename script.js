@@ -2,42 +2,32 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 const buscador = document.getElementById("buscador");
 
-// BUSCADOR
 buscador.addEventListener("keyup", aplicarFiltros);
 
-// AGREGAR
 function agregarCarrito(nombre, precio) {
   let producto = carrito.find(p => p.nombre === nombre);
 
-  if (producto) {
-    producto.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
-  }
+  if (producto) producto.cantidad++;
+  else carrito.push({ nombre, precio, cantidad: 1 });
 
   guardar();
   actualizarCarrito();
-  mostrarNotificacion("Producto agregado 🛒");
+  mostrarNotificacion("Agregado 🛒");
 }
 
-// CAMBIAR CANTIDAD
-function cambiarCantidad(index, cambio) {
-  carrito[index].cantidad += cambio;
+function cambiarCantidad(i, cambio) {
+  carrito[i].cantidad += cambio;
 
-  if (carrito[index].cantidad <= 0) {
-    carrito.splice(index, 1);
-  }
+  if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
 
   guardar();
   actualizarCarrito();
 }
 
-// GUARDAR
 function guardar() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// ACTUALIZAR
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -53,7 +43,7 @@ function actualizarCarrito() {
 
     lista.innerHTML += `
       <li>
-        <span>${p.nombre}</span>
+        ${p.nombre}
         <div class="controles">
           <button onclick="cambiarCantidad(${i}, -1)">➖</button>
           <span>${p.cantidad}</span>
@@ -67,19 +57,10 @@ function actualizarCarrito() {
   contador.innerText = cant;
 }
 
-// WHATSAPP
 function enviarWhatsApp() {
   let metodo = document.getElementById("metodoPago").value;
 
-  if (carrito.length === 0) {
-    mostrarNotificacion("Carrito vacío ❌");
-    return;
-  }
-
-  if (!metodo) {
-    mostrarNotificacion("Selecciona método ⚠️");
-    return;
-  }
+  if (!carrito.length || !metodo) return;
 
   let mensaje = "Hola, quiero pedir:%0A";
 
@@ -87,7 +68,7 @@ function enviarWhatsApp() {
     mensaje += `- ${p.nombre} x${p.cantidad}%0A`;
   });
 
-  let total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
+  let total = carrito.reduce((a, p) => a + p.precio * p.cantidad, 0);
 
   mensaje += `Total: $${total}%0A`;
   mensaje += `Pago: ${metodo}`;
@@ -95,33 +76,25 @@ function enviarWhatsApp() {
   window.open("https://wa.me/573218299283?text=" + mensaje);
 }
 
-// TOGGLE
 function toggleCarrito() {
   document.getElementById("carritoPanel").classList.toggle("activo");
   document.getElementById("overlay").classList.toggle("activo");
 }
 
-// FILTROS
-function filtrar(cat) {
-  categoriaActual = cat;
-  aplicarFiltros();
-}
+function filtrar() {}
 
 function aplicarFiltros() {
   let texto = buscador.value.toLowerCase();
 
   document.querySelectorAll(".card").forEach(p => {
-    let ok = p.innerText.toLowerCase().includes(texto);
-    p.style.display = ok ? "block" : "none";
+    p.style.display = p.innerText.toLowerCase().includes(texto) ? "block" : "none";
   });
 }
 
-// NOTIFICACIÓN
 function mostrarNotificacion(msg) {
   let n = document.getElementById("notificacion");
   n.innerText = msg;
   n.classList.add("mostrar");
-
   setTimeout(() => n.classList.remove("mostrar"), 2000);
 }
 
