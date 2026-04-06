@@ -39,12 +39,17 @@ function actualizarCarrito() {
     suma += p.precio * p.cantidad;
     cant += p.cantidad;
 
-    lista.innerHTML += `
-      <li>
-        ${p.nombre} x${p.cantidad}
-        <button onclick="eliminar(${i})">❌</button>
-      </li>
-    `;
+   lista.innerHTML += `
+  <li>
+    <span>${p.nombre}</span>
+
+    <div class="controles">
+      <button onclick="cambiarCantidad(${i}, -1)">➖</button>
+      <span>${p.cantidad}</span>
+      <button onclick="cambiarCantidad(${i}, 1)">➕</button>
+    </div>
+  </li>
+ `;
   });
 
   total.innerText = "Total: $" + suma;
@@ -118,3 +123,14 @@ function mostrarNotificacion(msg) {
 
 // INICIO
 actualizarCarrito();
+
+function cambiarCantidad(index, cambio) {
+  carrito[index].cantidad += cambio;
+
+  if (carrito[index].cantidad <= 0) {
+    carrito.splice(index, 1);
+  }
+
+  guardar();
+  actualizarCarrito();
+}
