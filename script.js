@@ -1,7 +1,14 @@
 let carrito = [];
 
 function agregarCarrito(nombre, precio) {
-  carrito.push({ nombre, precio });
+  let productoExistente = carrito.find(p => p.nombre === nombre);
+
+  if (productoExistente) {
+    productoExistente.cantidad++;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+
   actualizarCarrito();
 }
 
@@ -13,11 +20,12 @@ function actualizarCarrito() {
   let suma = 0;
 
   carrito.forEach((producto, index) => {
-    suma += producto.precio;
+    let subtotal = producto.precio * producto.cantidad;
+    suma += subtotal;
 
     lista.innerHTML += `
       <li>
-        ${producto.nombre} - $${producto.precio}
+        ${producto.nombre} x${producto.cantidad} - $${subtotal}
         <button onclick="eliminar(${index})">❌</button>
       </li>
     `;
@@ -37,17 +45,20 @@ function enviarWhatsApp() {
     return;
   }
 
-  let mensaje = "Hola, quiero pedir:\n";
+  let mensaje = "Hola, quiero pedir:%0A";
 
   carrito.forEach(p => {
-    mensaje += `- ${p.nombre} ($${p.precio})\n`;
+    mensaje += `- ${p.nombre} x${p.cantidad} ($${p.precio * p.cantidad})%0A`;
   });
 
-  let total = carrito.reduce((acc, p) => acc + p.precio, 0);
+  let total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
 
   mensaje += `Total: $${total}`;
 
-  let url = "https://wa.me/573218299283?text=" + encodeURIComponent(mensaje);
+  let url = "https://wa.me/573218299283?text=" + mensaje;
 
   window.open(url, "_blank");
+
 }
+
+alert("Producto agregado al carrito 🛒");

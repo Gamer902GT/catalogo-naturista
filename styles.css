@@ -174,3 +174,18 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.btn-agregar {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-agregar:hover {
+  transform: scale(1.05);
+  background: #1b5e20;
+}
