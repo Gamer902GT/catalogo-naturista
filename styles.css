@@ -211,3 +211,134 @@ body::after {
 .notificacion.mostrar {
   opacity: 1;
 }
+
+/* 🌿 ANIMACIÓN GENERAL SUAVE */
+* {
+  transition: all 0.3s ease;
+}
+
+/* HEADER ENTRADA */
+.header {
+  animation: fadeDown 1s ease;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* PRODUCTOS ENTRADA */
+.card {
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* EFECTO HOVER TARJETAS */
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* IMAGEN ZOOM */
+.card img {
+  transition: 0.4s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* BOTÓN AGREGAR */
+.card button {
+  transition: 0.3s;
+}
+
+.card button:hover {
+  transform: scale(1.05);
+}
+
+.card button:active {
+  transform: scale(0.95);
+}
+
+/* BOTÓN FLOTANTE */
+.btn-carrito:hover {
+  transform: scale(1.1);
+}
+
+/* CONTADOR ANIMADO */
+.btn-carrito span {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* CARRITO SLIDE MÁS SUAVE */
+.carrito-panel {
+  transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* BOTONES + - */
+.controles button:hover {
+  background: #2e7d32;
+  color: white;
+  transform: scale(1.1);
+}
+
+.controles button:active {
+  transform: scale(0.9);
+}
+
+/* NOTIFICACIÓN MÁS PRO */
+.notificacion {
+  transform: translateY(-20px);
+}
+
+.notificacion.mostrar {
+  transform: translateY(0);
+}
+
+/* FILTROS */
+.filtros button:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* ENTRADA ESCALONADA (MUY PRO) */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+
+/* EFECTO AL AGREGAR AL CARRITO */
+.agregado {
+  animation: pulse 0.4s;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}

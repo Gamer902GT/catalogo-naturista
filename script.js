@@ -13,6 +13,12 @@ function agregarCarrito(nombre, precio) {
   guardar();
   actualizarCarrito();
   mostrarNotificacion("Agregado 🛒");
+  document.querySelectorAll(".card").forEach(card => {
+  if (card.innerText.includes(nombre)) {
+    card.classList.add("agregado");
+    setTimeout(() => card.classList.remove("agregado"), 400);
+  }
+ });
 }
 
 function cambiarCantidad(i, cambio) {
