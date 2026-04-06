@@ -6,7 +6,7 @@ const buscador = document.getElementById("buscador");
 // 🔍 BUSCADOR
 buscador.addEventListener("keyup", aplicarFiltros);
 
-// 🛒 AGREGAR AL CARRITO
+// 🛒 AGREGAR
 function agregarCarrito(nombre, precio) {
   let productoExistente = carrito.find(p => p.nombre === nombre);
 
@@ -20,7 +20,7 @@ function agregarCarrito(nombre, precio) {
   mostrarNotificacion("Producto agregado 🛒");
 }
 
-// 🔄 ACTUALIZAR CARRITO
+// 🔄 ACTUALIZAR
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -43,16 +43,23 @@ function actualizarCarrito() {
   total.innerText = "Total: $" + suma;
 }
 
-// ❌ ELIMINAR PRODUCTO
+// ❌ ELIMINAR
 function eliminar(index) {
   carrito.splice(index, 1);
   actualizarCarrito();
 }
 
-// 📲 ENVIAR A WHATSAPP
+// 📲 WHATSAPP
 function enviarWhatsApp() {
+  let metodo = document.getElementById("metodoPago").value;
+
   if (carrito.length === 0) {
-    mostrarNotificacion("El carrito está vacío ❌");
+    mostrarNotificacion("Carrito vacío ❌");
+    return;
+  }
+
+  if (metodo === "") {
+    mostrarNotificacion("Selecciona método de pago ⚠️");
     return;
   }
 
@@ -64,14 +71,15 @@ function enviarWhatsApp() {
 
   let total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
 
-  mensaje += `Total: $${total}`;
+  mensaje += `Total: $${total}%0A`;
+  mensaje += `Método de pago: ${metodo}`;
 
   let url = "https://wa.me/573218299283?text=" + mensaje;
 
   window.open(url, "_blank");
 }
 
-// 🔍 FILTROS POR CATEGORÍA
+// 🔍 FILTROS
 function filtrar(categoria) {
   categoriaActual = categoria;
 
@@ -84,7 +92,7 @@ function filtrar(categoria) {
   aplicarFiltros();
 }
 
-// 🔍 APLICAR FILTROS + BUSCADOR
+// 🔍 FILTROS + BUSCADOR
 function aplicarFiltros() {
   let texto = buscador.value.toLowerCase();
   let productos = document.querySelectorAll(".card");
@@ -93,15 +101,11 @@ function aplicarFiltros() {
     let coincideTexto = p.innerText.toLowerCase().includes(texto);
     let coincideCategoria = categoriaActual === "todos" || p.classList.contains(categoriaActual);
 
-    if (coincideTexto && coincideCategoria) {
-      p.style.display = "block";
-    } else {
-      p.style.display = "none";
-    }
+    p.style.display = (coincideTexto && coincideCategoria) ? "block" : "none";
   });
 }
 
-// 🔔 NOTIFICACIÓN PRO
+// 🔔 NOTIFICACIÓN
 function mostrarNotificacion(mensaje) {
   let noti = document.getElementById("notificacion");
 

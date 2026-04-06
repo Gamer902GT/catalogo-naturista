@@ -2,62 +2,68 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Herbanza 🌿</title>
+  <title>Tienda Naturista</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="header">
-  <h1>Herbanza 🌿</h1>
-  <p>Bienestar natural premium</p>
+  <h1>Tienda Naturista 🌿</h1>
+  <p>Productos naturales para tu bienestar</p>
 </header>
 
 <div class="top-bar">
-  <input type="text" id="buscador" placeholder="Buscar productos...">
+  <input type="text" id="buscador" placeholder="Buscar producto...">
 
   <div class="filtros">
     <button onclick="filtrar('todos')" class="activo">Todos</button>
     <button onclick="filtrar('te')">Tés</button>
     <button onclick="filtrar('proteina')">Proteínas</button>
   </div>
+</div>
+
+<!-- 🛒 CARRITO -->
 <div class="carrito">
   <h2>🛒 Carrito</h2>
   <ul id="lista-carrito"></ul>
   <p id="total">Total: $0</p>
+
+  <!-- 💳 MÉTODO DE PAGO -->
+  <select id="metodoPago">
+    <option value="">Selecciona método de pago</option>
+    <option value="Nequi">Nequi</option>
+    <option value="Daviplata">Daviplata</option>
+    <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+  </select>
+
   <button onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
 </div>
 
-</div>
-
+<!-- 🛍️ PRODUCTOS -->
 <section class="productos">
 
   <div class="card te">
-    <span class="badge">Natural</span>
     <img src="img/te.jpg">
-    <h2>Té Verde Premium</h2>
-    <p>Mejora la digestión y acelera el metabolismo</p>
-    <span class="precio">$15.000</span>
-    <button class="btn-agregar" onclick="agregarCarrito('Té Verde', 15000)">
-  🛒 Agregar
-</button>
+    <h2>Té Verde</h2>
+    <p>Ayuda a la digestión</p>
+    <span class="precio">$15000</span>
+    <button onclick="agregarCarrito('Té Verde', 15000)">🛒 Agregar</button>
   </div>
 
   <div class="card proteina">
-    <span class="badge top">Top</span>
     <img src="img/proteina.jpg">
-    <h2>Proteína Natural Pro</h2>
-    <p>Energía limpia y desarrollo muscular</p>
-    <span class="precio">$80.000</span>
-    <button class="btn-agregar" onclick="agregarCarrito('Proteína Natural Pro', 80000)">
-  🛒 Agregar
-</button>
+    <h2>Proteína Natural</h2>
+    <p>Energía y masa muscular</p>
+    <span class="precio">$80000</span>
+    <button onclick="agregarCarrito('Proteína Natural', 80000)">🛒 Agregar</button>
   </div>
 
 </section>
 
-<script src="script.js"></script>
-
+<!-- 🔔 NOTIFICACIÓN -->
 <div id="notificacion" class="notificacion"></div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
