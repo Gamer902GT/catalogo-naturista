@@ -1,99 +1,134 @@
 body {
-  font-family: Arial;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  background: #f4f4f4;
+  background: #f7f9f7;
+  color: #333;
 }
 
 .header {
-  background: linear-gradient(45deg, #2e7d32, #66bb6a);
-  color: white;
   text-align: center;
-  padding: 30px;
+  padding: 40px 20px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header p {
+  color: #777;
 }
 
 .top-bar {
   text-align: center;
-  margin: 20px;
+  margin: 30px 0;
 }
 
 #buscador {
   width: 70%;
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
-  margin-bottom: 10px;
+  max-width: 400px;
+  padding: 12px 15px;
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.filtros {
+  margin-top: 15px;
 }
 
 .filtros button {
   margin: 5px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 20px;
-  background: #2e7d32;
-  color: white;
+  padding: 10px 18px;
+  border: 1px solid #2e7d32;
+  border-radius: 25px;
+  background: transparent;
+  color: #2e7d32;
   cursor: pointer;
   transition: 0.3s;
 }
 
+.filtros button:hover,
 .filtros button.activo {
-  background: #1b5e20;
+  background: #2e7d32;
+  color: white;
 }
 
 .productos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .card {
-  position: relative;
   background: white;
-  border-radius: 15px;
-  width: 250px;
-  margin: 15px;
+  border-radius: 20px;
   padding: 15px;
-  text-align: center;
   transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #eee;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .card img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
-.badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: orange;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-size: 12px;
+.card h2 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #666;
 }
 
 .precio {
   display: block;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   margin: 10px 0;
+  color: #2e7d32;
 }
 
 .card a {
   display: block;
-  background: #25D366;
-  color: white;
+  text-align: center;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+  background: #2e7d32;
+  color: white;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 .card a:hover {
-  background: #1ebe5d;
+  background: #1b5e20;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #66bb6a;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+.badge.top {
+  background: #ff9800;
 }
 
 @media (max-width: 600px) {
@@ -101,4 +136,3 @@ body {
     width: 90%;
   }
 }
-
