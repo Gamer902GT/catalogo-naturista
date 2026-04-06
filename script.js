@@ -1,5 +1,12 @@
 let carrito = [];
+let categoriaActual = "todos";
 
+const buscador = document.getElementById("buscador");
+
+// 🔍 BUSCADOR
+buscador.addEventListener("keyup", aplicarFiltros);
+
+// 🛒 AGREGAR AL CARRITO
 function agregarCarrito(nombre, precio) {
   let productoExistente = carrito.find(p => p.nombre === nombre);
 
@@ -10,8 +17,10 @@ function agregarCarrito(nombre, precio) {
   }
 
   actualizarCarrito();
+  mostrarNotificacion("Producto agregado 🛒");
 }
 
+// 🔄 ACTUALIZAR CARRITO
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -34,14 +43,16 @@ function actualizarCarrito() {
   total.innerText = "Total: $" + suma;
 }
 
+// ❌ ELIMINAR PRODUCTO
 function eliminar(index) {
   carrito.splice(index, 1);
   actualizarCarrito();
 }
 
+// 📲 ENVIAR A WHATSAPP
 function enviarWhatsApp() {
   if (carrito.length === 0) {
-    alert("El carrito está vacío");
+    mostrarNotificacion("El carrito está vacío ❌");
     return;
   }
 
@@ -58,7 +69,46 @@ function enviarWhatsApp() {
   let url = "https://wa.me/573218299283?text=" + mensaje;
 
   window.open(url, "_blank");
-
 }
 
-alert("Producto agregado al carrito 🛒");
+// 🔍 FILTROS POR CATEGORÍA
+function filtrar(categoria) {
+  categoriaActual = categoria;
+
+  document.querySelectorAll(".filtros button").forEach(btn => {
+    btn.classList.remove("activo");
+  });
+
+  event.target.classList.add("activo");
+
+  aplicarFiltros();
+}
+
+// 🔍 APLICAR FILTROS + BUSCADOR
+function aplicarFiltros() {
+  let texto = buscador.value.toLowerCase();
+  let productos = document.querySelectorAll(".card");
+
+  productos.forEach(p => {
+    let coincideTexto = p.innerText.toLowerCase().includes(texto);
+    let coincideCategoria = categoriaActual === "todos" || p.classList.contains(categoriaActual);
+
+    if (coincideTexto && coincideCategoria) {
+      p.style.display = "block";
+    } else {
+      p.style.display = "none";
+    }
+  });
+}
+
+// 🔔 NOTIFICACIÓN PRO
+function mostrarNotificacion(mensaje) {
+  let noti = document.getElementById("notificacion");
+
+  noti.innerText = mensaje;
+  noti.classList.add("mostrar");
+
+  setTimeout(() => {
+    noti.classList.remove("mostrar");
+  }, 2000);
+}
