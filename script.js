@@ -3,12 +3,11 @@ let categoriaActual = "todos";
 
 const buscador = document.getElementById("buscador");
 
-// 🔥 FILTROS + BUSCADOR (ARREGLADO)
+// FILTROS + BUSCADOR
 function aplicarFiltros() {
   let texto = buscador.value.toLowerCase();
-  let productos = document.querySelectorAll(".card");
 
-  productos.forEach(p => {
+  document.querySelectorAll(".card").forEach(p => {
     let coincideTexto = p.innerText.toLowerCase().includes(texto);
     let coincideCategoria =
       categoriaActual === "todos" ||
@@ -18,30 +17,24 @@ function aplicarFiltros() {
   });
 }
 
-// EVENTO BUSCADOR
 buscador.addEventListener("keyup", aplicarFiltros);
 
-// BOTONES FILTRO
-function filtrar(categoria) {
-  categoriaActual = categoria;
+function filtrar(cat) {
+  categoriaActual = cat;
   aplicarFiltros();
 }
 
-// 🛒 AGREGAR AL CARRITO
+// CARRITO
 function agregarCarrito(nombre, precio) {
-  let producto = carrito.find(p => p.nombre === nombre);
+  let prod = carrito.find(p => p.nombre === nombre);
 
-  if (producto) {
-    producto.cantidad++;
-  } else {
-    carrito.push({ nombre, precio, cantidad: 1 });
-  }
+  if (prod) prod.cantidad++;
+  else carrito.push({ nombre, precio, cantidad: 1 });
 
   actualizarCarrito();
-  mostrarNotificacion("Producto agregado 🛒");
+  mostrarNotificacion("Agregado 🛒");
 }
 
-// 🛒 ACTUALIZAR CARRITO
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -49,84 +42,65 @@ function actualizarCarrito() {
 
   lista.innerHTML = "";
   let suma = 0;
-  let cantidadTotal = 0;
+  let cant = 0;
 
   carrito.forEach((p, i) => {
-    let subtotal = p.precio * p.cantidad;
-    suma += subtotal;
-    cantidadTotal += p.cantidad;
+    suma += p.precio * p.cantidad;
+    cant += p.cantidad;
 
     lista.innerHTML += `
       <li>
-        ${p.nombre} x${p.cantidad} - $${subtotal}
-        <div>
-          <button onclick="cambiarCantidad(${i}, -1)">➖</button>
-          <button onclick="cambiarCantidad(${i}, 1)">➕</button>
-          <button onclick="eliminar(${i})">❌</button>
-        </div>
+        ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}
+        <button onclick="cambiar(${i},-1)">➖</button>
+        <button onclick="cambiar(${i},1)">➕</button>
+        <button onclick="eliminar(${i})">❌</button>
       </li>
     `;
   });
 
   total.innerText = "Total: $" + suma;
-  contador.innerText = cantidadTotal;
+  contador.innerText = cant;
 }
 
-// ➕➖ CAMBIAR CANTIDAD
-function cambiarCantidad(index, cambio) {
-  carrito[index].cantidad += cambio;
-
-  if (carrito[index].cantidad <= 0) {
-    carrito.splice(index, 1);
-  }
-
+function cambiar(i, v) {
+  carrito[i].cantidad += v;
+  if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
   actualizarCarrito();
 }
 
-// ❌ ELIMINAR
-function eliminar(index) {
-  carrito.splice(index, 1);
+function eliminar(i) {
+  carrito.splice(i, 1);
   actualizarCarrito();
 }
 
-// 📲 WHATSAPP
+// WHATSAPP
 function enviarWhatsApp() {
-  if (carrito.length === 0) {
-    alert("El carrito está vacío");
-    return;
-  }
+  if (!carrito.length) return alert("Carrito vacío");
 
   let metodo = document.getElementById("metodoPago").value;
 
-  let mensaje = "Hola, quiero pedir:\n";
+  let msg = "Hola, quiero pedir:\n";
 
   carrito.forEach(p => {
-    mensaje += `- ${p.nombre} x${p.cantidad} ($${p.precio * p.cantidad})\n`;
+    msg += `- ${p.nombre} x${p.cantidad}\n`;
   });
 
-  let total = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+  msg += "Pago: " + metodo;
 
-  mensaje += `Total: $${total}\n`;
-  mensaje += `Método de pago: ${metodo}`;
-
-  let url = "https://wa.me/573218299283?text=" + encodeURIComponent(mensaje);
+  let url = "https://wa.me/573218299283?text=" + encodeURIComponent(msg);
 
   window.open(url, "_blank");
 }
 
-// 🧾 ABRIR / CERRAR CARRITO
+// UI
 function toggleCarrito() {
   document.getElementById("carritoPanel").classList.toggle("activo");
   document.getElementById("overlay").classList.toggle("activo");
 }
 
-// 🔔 NOTIFICACIÓN
 function mostrarNotificacion(msg) {
   let n = document.getElementById("notificacion");
   n.innerText = msg;
   n.classList.add("mostrar");
-
-  setTimeout(() => {
-    n.classList.remove("mostrar");
-  }, 2000);
+  setTimeout(() => n.classList.remove("mostrar"), 2000);
 }

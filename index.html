@@ -28,16 +28,16 @@
     <img src="img/te.jpg">
     <h2>Té Verde</h2>
     <p>Ayuda a la digestión</p>
-    <span class="precio">$15000</span>
-    <button onclick="agregarCarrito('Té Verde',15000,this)">Agregar</button>
+    <span>$15000</span>
+    <button onclick="agregarCarrito('Té Verde',15000)">Agregar</button>
   </div>
 
   <div class="card proteina">
     <img src="img/proteina.jpg">
     <h2>Proteína Natural</h2>
     <p>Energía y masa muscular</p>
-    <span class="precio">$80000</span>
-    <button onclick="agregarCarrito('Proteína Natural',80000,this)">Agregar</button>
+    <span>$80000</span>
+    <button onclick="agregarCarrito('Proteína Natural',80000)">Agregar</button>
   </div>
 
 </section>
@@ -47,10 +47,13 @@
   🛒 <span id="contador">0</span>
 </div>
 
-<!-- CARRITO -->
-<div class="overlay" id="overlay" onclick="toggleCarrito()"></div>
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="toggleCarrito()"></div>
 
+<!-- CARRITO -->
 <div class="carrito-panel" id="carritoPanel">
+  <button class="cerrar" onclick="toggleCarrito()">✖</button>
+
   <h2>Carrito</h2>
   <ul id="lista-carrito"></ul>
   <p id="total">Total: $0</p>
