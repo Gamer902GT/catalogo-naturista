@@ -87,22 +87,25 @@ function actualizarCarrito() {
 
 // WHATSAPP
 function enviarWhatsApp() {
-  let metodo = document.getElementById("metodoPago").value;
+  if (carrito.length === 0) {
+    alert("El carrito está vacío");
+    return;
+  }
 
-  if (!carrito.length || !metodo) return;
-
-  let mensaje = "Hola, quiero pedir:%0A";
+  let mensaje = "Hola, quiero pedir:\n";
 
   carrito.forEach(p => {
-    mensaje += `- ${p.nombre} x${p.cantidad}%0A`;
+    mensaje += `- ${p.nombre} x${p.cantidad} ($${p.precio * p.cantidad})\n`;
   });
 
-  let total = carrito.reduce((a, p) => a + p.precio * p.cantidad, 0);
+  let total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
 
-  mensaje += `Total: $${total}%0A`;
-  mensaje += `Pago: ${metodo}`;
+  mensaje += `Total: $${total}`;
 
-  window.open("https://wa.me/573218299283?text=" + mensaje);
+  // 🔥 CLAVE
+  let url = "https://wa.me/573218299283?text=" + encodeURIComponent(mensaje);
+
+  window.open(url, "_blank");
 }
 
 // TOGGLE
