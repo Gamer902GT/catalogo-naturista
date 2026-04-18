@@ -1,61 +1,39 @@
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = [];
 
 const buscador = document.getElementById("buscador");
 
-buscador.addEventListener("keyup", aplicarFiltros);
+buscador.addEventListener("keyup", () => {
+  let texto = buscador.value.toLowerCase();
 
-// 🛒 AGREGAR + EFECTO VUELO
-function agregarCarrito(nombre, precio, boton) {
+  document.querySelectorAll(".card").forEach(p => {
+    p.style.display = p.innerText.toLowerCase().includes(texto) ? "block" : "none";
+  });
+});
 
-  let card = boton.closest(".card");
-  let img = card.querySelector("img");
+// FILTROS
+function filtrar(categoria) {
+  let productos = document.querySelectorAll(".card");
 
-  let clone = img.cloneNode();
-  let rect = img.getBoundingClientRect();
+  productos.forEach(p => {
+    if (categoria === "todos") {
+      p.style.display = "block";
+    } else {
+      p.style.display = p.classList.contains(categoria) ? "block" : "none";
+    }
+  });
+}
 
-  clone.classList.add("fly-img");
-  clone.style.left = rect.left + "px";
-  clone.style.top = rect.top + "px";
-
-  document.body.appendChild(clone);
-
-  let carritoBtn = document.querySelector(".btn-carrito");
-  let destino = carritoBtn.getBoundingClientRect();
-
-  setTimeout(() => {
-    clone.style.left = destino.left + "px";
-    clone.style.top = destino.top + "px";
-    clone.style.width = "20px";
-    clone.style.opacity = "0.5";
-  }, 10);
-
-  setTimeout(() => clone.remove(), 800);
-
-  // LÓGICA NORMAL
+// CARRITO
+function agregarCarrito(nombre, precio) {
   let producto = carrito.find(p => p.nombre === nombre);
 
   if (producto) producto.cantidad++;
   else carrito.push({ nombre, precio, cantidad: 1 });
 
-  guardar();
   actualizarCarrito();
-  mostrarNotificacion("Agregado 🛒");
+  mostrarNotificacion("Agregado al carrito 🛒");
 }
 
-// CAMBIAR CANTIDAD
-function cambiarCantidad(i, cambio) {
-  carrito[i].cantidad += cambio;
-  if (carrito[i].cantidad <= 0) carrito.splice(i, 1);
-  guardar();
-  actualizarCarrito();
-}
-
-// GUARDAR
-function guardar() {
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-}
-
-// ACTUALIZAR
 function actualizarCarrito() {
   let lista = document.getElementById("lista-carrito");
   let total = document.getElementById("total");
@@ -71,12 +49,8 @@ function actualizarCarrito() {
 
     lista.innerHTML += `
       <li>
-        ${p.nombre}
-        <div class="controles">
-          <button onclick="cambiarCantidad(${i}, -1)">➖</button>
-          <span>${p.cantidad}</span>
-          <button onclick="cambiarCantidad(${i}, 1)">➕</button>
-        </div>
+        ${p.nombre} x${p.cantidad}
+        <button onclick="eliminar(${i})">❌</button>
       </li>
     `;
   });
@@ -85,52 +59,36 @@ function actualizarCarrito() {
   contador.innerText = cant;
 }
 
+function eliminar(i) {
+  carrito.splice(i, 1);
+  actualizarCarrito();
+}
+
 // WHATSAPP
 function enviarWhatsApp() {
-  if (carrito.length === 0) {
-    alert("El carrito está vacío");
-    return;
-  }
+  if (!carrito.length) return;
 
   let mensaje = "Hola, quiero pedir:\n";
 
   carrito.forEach(p => {
-    mensaje += `- ${p.nombre} x${p.cantidad} ($${p.precio * p.cantidad})\n`;
+    mensaje += `- ${p.nombre} x${p.cantidad}\n`;
   });
 
-  let total = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
-
-  mensaje += `Total: $${total}`;
-
-  // 🔥 CLAVE
   let url = "https://wa.me/573218299283?text=" + encodeURIComponent(mensaje);
 
   window.open(url, "_blank");
 }
 
-// TOGGLE
+// UI
 function toggleCarrito() {
   document.getElementById("carritoPanel").classList.toggle("activo");
   document.getElementById("overlay").classList.toggle("activo");
 }
 
-// FILTROS
-function filtrar() {}
-
-function aplicarFiltros() {
-  let texto = buscador.value.toLowerCase();
-
-  document.querySelectorAll(".card").forEach(p => {
-    p.style.display = p.innerText.toLowerCase().includes(texto) ? "block" : "none";
-  });
-}
-
-// NOTIFICACIÓN
 function mostrarNotificacion(msg) {
   let n = document.getElementById("notificacion");
   n.innerText = msg;
   n.classList.add("mostrar");
+
   setTimeout(() => n.classList.remove("mostrar"), 2000);
 }
-
-actualizarCarrito();

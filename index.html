@@ -27,9 +27,9 @@
   <div class="card tes">
     <img src="img/te.jpg">
     <h2>Té Verde</h2>
-    <p>Digestión y antioxidante</p>
+    <p>Ayuda a la digestión</p>
     <span class="precio">$15000</span>
-    <button onclick="agregarCarrito('Té Verde', 15000, this)">🛒 Agregar</button>
+    <button onclick="agregarCarrito('Té Verde',15000,this)">Agregar</button>
   </div>
 
   <div class="card proteina">
@@ -37,26 +37,21 @@
     <h2>Proteína Natural</h2>
     <p>Energía y masa muscular</p>
     <span class="precio">$80000</span>
-    <button onclick="agregarCarrito('proteína natural', 80000, this)">🛒 Agregar</button>
+    <button onclick="agregarCarrito('Proteína Natural',80000,this)">Agregar</button>
   </div>
 
 </section>
 
-<!-- BOTÓN FLOTANTE -->
+<!-- BOTÓN CARRITO -->
 <div class="btn-carrito" onclick="toggleCarrito()">
   🛒 <span id="contador">0</span>
 </div>
 
-<!-- OVERLAY -->
-<div id="overlay" class="overlay" onclick="toggleCarrito()"></div>
-
 <!-- CARRITO -->
-<div class="carrito-panel" id="carritoPanel">
-  <div class="carrito-header">
-    <h2>Tu carrito</h2>
-    <span onclick="toggleCarrito()">✖</span>
-  </div>
+<div class="overlay" id="overlay" onclick="toggleCarrito()"></div>
 
+<div class="carrito-panel" id="carritoPanel">
+  <h2>Carrito</h2>
   <ul id="lista-carrito"></ul>
   <p id="total">Total: $0</p>
 
@@ -67,7 +62,7 @@
     <option value="Tarjeta">Tarjeta</option>
   </select>
 
-  <button onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
+  <button onclick="enviarWhatsApp()">Comprar</button>
 </div>
 
 <div id="notificacion" class="notificacion"></div>
